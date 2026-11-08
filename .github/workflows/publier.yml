@@ -28,8 +28,8 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Installer Pillow
-        run: pip install Pillow
+      - name: Installer Pillow et Markdown
+        run: pip install Pillow markdown
 
       - name: Récupérer les photos déjà traitées
         uses: actions/cache@v4
@@ -38,7 +38,7 @@ jobs:
           key: photos-${{ github.run_id }}
           restore-keys: photos-
 
-      - name: Lire les références dans Airtable
+      - name: Lire les références et actualités dans Airtable
         run: python build/sync_airtable.py
         env:
           AIRTABLE_TOKEN: ${{ secrets.AIRTABLE_TOKEN }}

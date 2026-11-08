@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
-"""Lit la table Airtable « Références » et produit data/references.json + les photos dans dist/refs/.
+"""Lit les tables Airtable « Références » et « Actualités » et produit data/references.json,
+data/actualites.json + les photos dans dist/refs/.
 
 Variables d'environnement :
   AIRTABLE_TOKEN   jeton personnel Airtable (lecture seule sur la base ABEL Community Management)
   AIRTABLE_BASE    appFk8K08CAKtFvyF (par défaut)
-  AIRTABLE_TABLE   tblSaDMHHxFwvxSAs (par défaut)
+  AIRTABLE_TABLE   tblSaDMHHxFwvxSAs (par défaut, Références)
+  AIRTABLE_NEWS    tblQWkEn3inbgjBar (par défaut, Actualités)
 Les photos déjà téléchargées sont gardées dans .cache/refs (cache GitHub Actions), seules les nouvelles sont récupérées.
 """
 import json, os, re, sys, time, unicodedata, urllib.request, urllib.parse, html
@@ -14,6 +16,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TOKEN = os.environ.get("AIRTABLE_TOKEN")
 BASE = os.environ.get("AIRTABLE_BASE", "appFk8K08CAKtFvyF")
 TABLE = os.environ.get("AIRTABLE_TABLE", "tblSaDMHHxFwvxSAs")
+NEWS = os.environ.get("AIRTABLE_NEWS", "tblQWkEn3inbgjBar")
 CACHE = os.path.join(ROOT, ".cache", "refs")
 OUT_IMG = os.path.join(ROOT, "dist", "refs")
 MAX = 1600
@@ -21,8 +24,8 @@ MAX = 1600
 CAT_SLUG = {"Béton": "beton", "Acier": "acier", "Bois": "bois", "Patrimoine": "patrimoine", "Logements": "logements",
             "Industrie": "industrie", "Équipements collectifs": "equipements-collectifs", "Public": "public", "Privé": "prive"}
 
-def api(params):
-    url = f"https://api.airtable.com/v0/{BASE}/{TABLE}?" + urllib.parse.urlencode(params, doseq=True)
+def api(params, table=None):
+    url = f"https://api.airtable.com/v0/{BASE}/{table or TABLE}?" + urllib.parse.urlencode(params, doseq=True)
     req = urllib.request.Request(url, headers={"Authorization": f"Bearer {TOKEN}"})
     for attempt in range(5):
         try:
@@ -34,12 +37,12 @@ def api(params):
             raise
     raise RuntimeError("Airtable indisponible")
 
-def fetch_all():
+def fetch_all(table=None):
     recs, offset = [], None
     while True:
         p = {"pageSize": 100, "filterByFormula": "{Publié}", "returnFieldsByFieldId": "false"}
         if offset: p["offset"] = offset
-        d = api(p)
+        d = api(p, table)
         recs += d["records"]
         offset = d.get("offset")
         if not offset: return recs
@@ -112,5 +115,30 @@ def main():
     json.dump(out, open(os.path.join(ROOT, "data", "references.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(len(out), "références publiées")
 
+def news():
+    """Table Actualités : Texte (texte enrichi, markdown) + Photos en galerie sous le texte."""
+    import markdown
+    out, seen = [], set()
+    for r in fetch_all(NEWS):
+        f = r["fields"]
+        titre = (f.get("Titre") or "").strip()
+        if not titre: continue
+        slug = (f.get("Slug") or "").strip() or slugify(titre)
+        while slug in seen: slug += "-2"
+        seen.add(slug)
+        vign = f.get("Vignette") or []
+        v = image(vign[0]) if vign else None
+        corps = markdown.markdown(f.get("Texte") or "", extensions=["nl2br", "sane_lists"])
+        corps = re.sub(r'(?<![("=>])(https?://[^\s<]+)', r'<a href="\1" target="_blank" rel="noopener">\1</a>', corps)
+        photos = [image(a) for a in (f.get("Photos") or []) if (a.get("type") or "image").startswith("image")]
+        if photos:
+            corps += '<div class="gal">' + "".join(f'<a class="gi" href="{u}"><img loading="lazy" src="{u}" alt=""></a>' for u in photos) + "</div>"
+        out.append(dict(slug=slug, titre=html.escape(titre, quote=False), date=f.get("Date") or r["createdTime"][:10],
+                        vignette=v or (photos[0] if photos else None), contenu_html=corps, publie=True))
+    out.sort(key=lambda x: x["date"], reverse=True)
+    json.dump(out, open(os.path.join(ROOT, "data", "actualites.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print(len(out), "actualités publiées")
+
 if __name__ == "__main__":
     main()
+    news()
