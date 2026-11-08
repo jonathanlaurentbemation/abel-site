@@ -63,8 +63,12 @@ def image(att):
     cached = os.path.join(CACHE, name)
     if not os.path.exists(cached):
         os.makedirs(CACHE, exist_ok=True)
-        with urllib.request.urlopen(att["url"], timeout=120) as r:
-            raw = r.read()
+        try:
+            req = urllib.request.Request(att["url"], headers={"User-Agent": "Mozilla/5.0 (abel-site build)"})
+            with urllib.request.urlopen(req, timeout=120) as r:
+                raw = r.read()
+        except Exception as e:
+            print("photo ignorée :", att.get("url"), e); return None
         im = Image.open(BytesIO(raw)); im = ImageOps.exif_transpose(im)
         if max(im.size) > MAX: im.thumbnail((MAX, MAX), Image.LANCZOS)
         if ext in (".jpg", ".jpeg"): im.convert("RGB").save(cached, "JPEG", quality=84, optimize=True, progressive=True)
@@ -104,7 +108,7 @@ def main():
         while slug in seen: slug += "-2"
         seen.add(slug)
         vign = f.get("Vignette") or []; gal = f.get("Galerie") or []
-        gal_urls = [image(a) for a in gal if (a.get("type") or "image").startswith("image")]
+        gal_urls = [u for u in (image(a) for a in gal if (a.get("type") or "image").startswith("image")) if u]
         v = image(vign[0]) if vign else (gal_urls[0] if gal_urls else None)
         if not v:
             print("ignorée (aucune photo) :", titre); continue
@@ -130,7 +134,7 @@ def news():
         v = image(vign[0]) if vign else None
         corps = markdown.markdown(f.get("Texte") or "", extensions=["nl2br", "sane_lists"])
         corps = re.sub(r'(?<![("=>])(https?://[^\s<]+)', r'<a href="\1" target="_blank" rel="noopener">\1</a>', corps)
-        photos = [image(a) for a in (f.get("Photos") or []) if (a.get("type") or "image").startswith("image")]
+        photos = [u for u in (image(a) for a in (f.get("Photos") or []) if (a.get("type") or "image").startswith("image")) if u]
         if photos:
             corps += '<div class="gal">' + "".join(f'<a class="gi" href="{u}"><img loading="lazy" src="{u}" alt=""></a>' for u in photos) + "</div>"
         out.append(dict(slug=slug, titre=html.escape(titre, quote=False), date=f.get("Date") or r["createdTime"][:10],
