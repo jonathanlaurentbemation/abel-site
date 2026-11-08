@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://withered-mountain-5d27.jonathan-laurent.workers.dev; frame-ancestors 'self' https://www.abel.be https://abel.be; base-uri 'none'; form-action 'none'; object-src 'none';" />
+  <title>Célia — Demande de devis</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f4f4f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .chat-container {
+      width: 100%;
+      max-width: 480px;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      height: 620px;
+      overflow: hidden;
+    }
+
+    .chat-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid #ebebeb;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #fff;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #FEF3E2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .header-info .name {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+
+    .header-info .subtitle {
+      font-size: 12px;
+      color: #888;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 5px;
+    }
+
+    .messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      scroll-behavior: smooth;
+    }
+
+    .msg {
+      max-width: 80%;
+      padding: 10px 14px;
+      border-radius: 16px;
+      font-size: 14px;
+      line-height: 1.55;
+      word-wrap: break-word;
+    }
+
+    .msg.bot {
+      background: #f2f2f2;
+      color: #1a1a1a;
+      border-bottom-left-radius: 4px;
+      align-self: flex-start;
+    }
+
+    .msg.user {
+      background: #F9A02C;
+      color: #fff;
+      border-bottom-right-radius: 4px;
+      align-self: flex-end;
+    }
+
+    .msg.typing {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      padding: 12px 16px;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      background: #999;
+      border-radius: 50%;
+      animation: bounce 1.1s infinite ease-in-out;
+    }
+    .dot:nth-child(2) { animation-delay: .2s; }
+    .dot:nth-child(3) { animation-delay: .4s; }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); opacity: 0.4; }
+      50% { transform: translateY(-4px); opacity: 1; }
+    }
+
+    .lead-box {
+      margin: 0 14px 12px;
+      padding: 12px 14px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      font-size: 13px;
+      color: #15803d;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 8px;
+      padding: 14px 16px;
+      border-top: 1px solid #ebebeb;
+      background: #fff;
+    }
+
+    .input-row input {
+      flex: 1;
+      border: 1px solid #e0e0e0;
+      border-radius: 24px;
+      padding: 10px 16px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color .2s;
+      color: #1a1a1a;
+      background: #fafafa;
+    }
+
+    .input-row input:focus {
+      border-color: #F9A02C;
+      background: #fff;
+    }
+
+    .input-row input:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .send-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #F9A02C;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background .2s, transform .1s;
+    }
+
+    .send-btn:hover { background: #E08920; }
+    .send-btn:active { transform: scale(0.95); }
+    .send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .send-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: white;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .upload-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: none;
+      border: 1.5px solid #d1d5db;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 17px;
+      transition: border-color .2s, background .2s;
+    }
+    .upload-btn:hover { border-color: #F9A02C; background: #FEF3E2; }
+    .upload-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .file-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 6px 16px 0;
+    }
+    .file-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 10px 3px 8px;
+      background: #FEF3E2;
+      border: 1px solid #FCD9A6;
+      border-radius: 20px;
+      font-size: 12px;
+      color: #B45309;
+      max-width: 200px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .file-pill .remove-file {
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 1;
+      color: #6b7280;
+      flex-shrink: 0;
+    }
+    .file-pill .remove-file:hover { color: #ef4444; }
+    .uploading-msg {
+      font-size: 12px;
+      color: #6b7280;
+      padding: 4px 16px;
+      font-style: italic;
+    }
+    .msg-image {
+      max-width: 200px;
+      max-height: 150px;
+      border-radius: 8px;
+      margin-top: 6px;
+      display: block;
+      cursor: pointer;
+    }
+
+    @media (max-width: 520px) {
+      body { padding: 0; align-items: flex-end; }
+      .chat-container { max-width: 100%; border-radius: 16px 16px 0 0; height: 90vh; }
+    }
+
+    /* Mode embed (iframe dans abel.be) : remplit tout le viewport */
+    body.embedded { padding: 0; background: transparent; }
+    body.embedded .chat-container {
+      max-width: none;
+      width: 100%;
+      height: 100vh;
+      border-radius: 0;
+      box-shadow: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="chat-container">
+  <div class="chat-header">
+    <div class="avatar" style="background:none; overflow:hidden; border-radius:50%; width:40px; height:40px;">
+      <img src="celia.jpg" width="40" height="40" alt="Célia" style="border-radius:50%; object-fit:cover; object-position:top center;"/>
+    </div>
+    <div class="header-info">
+      <div class="name">Célia</div>
+      <div class="subtitle"><span class="status-dot"></span>Assistante administrative</div>
+    </div>
+  </div>
+
+  <div class="messages" id="messages"></div>
+  <div id="leadBox"></div>
+
+  <div id="filePills" class="file-pills"></div>
+  <div id="uploadingMsg"></div>
+  <div class="input-row">
+    <button class="upload-btn" id="uploadBtn" title="Joindre une photo ou un plan">📎</button>
+    <input type="file" id="fileInput" accept="image/*,.pdf,.jpg,.jpeg,.png,.gif,.webp" multiple style="display:none" />
+    <input type="text" id="userInput" placeholder="Votre message..." autocomplete="off" maxlength="2000" />
+    <button class="send-btn" id="sendBtn" aria-label="Envoyer">
+      <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  // ── CONFIGURATION ──────────────────────────────────────────
+  // Toute la logique sensible (prompt système, modèle, clé API, webhooks Make)
+  // vit côté Worker. Le front ne connaît que l'URL du Worker.
+  const API_BASE   = "https://withered-mountain-5d27.jonathan-laurent.workers.dev";
+  const CHAT_URL   = API_BASE + "/chat";
+  const UPLOAD_URL = API_BASE + "/upload";
+  const SAVE_URL   = API_BASE + "/save";
+  const DELETE_URL = API_BASE + "/delete";
+  const LEAD_URL   = API_BASE + "/lead";
+  // ───────────────────────────────────────────────────────────
+
+  let history = [];
+  let isLoading = false;
+
+  // Mode embed : si chargé via iframe avec ?embed=1, on remplit tout le viewport
+  if (location.search.indexOf('embed=1') !== -1) {
+    document.body.classList.add('embedded');
+  }
+  let uploadedFiles = []; // [{url, name}]
+  let partialData = {};   // Accumule les champs collectés pour les sauvegardes partielles
+  let partialRecordId = ''; // ID du record dans Demandes_partielles, retourné par Make au premier save
+  let partialSavePromise = Promise.resolve(); // Promesse du dernier partial save en cours (pour ne pas bloquer la conversation)
+
+  const messagesEl = document.getElementById('messages');
+  const userInput  = document.getElementById('userInput');
+  const sendBtn    = document.getElementById('sendBtn');
+
+  function addMsg(text, role) {
+    const div = document.createElement('div');
+    div.className = 'msg ' + role;
+    div.textContent = text;
+    messagesEl.appendChild(div);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+
+  function showTyping() {
+    const div = document.createElement('div');
+    div.className = 'msg bot typing';
+    div.id = 'typing-indicator';
+    div.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
+    messagesEl.appendChild(div);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+
+  function removeTyping() {
+    const t = document.getElementById('typing-indicator');
+    if (t) t.remove();
+  }
+
+  async function callProxy(messages) {
+    // Le front n'envoie QUE les messages. Le modèle, le max_tokens et le prompt
+    // système sont imposés par le Worker et ne sont plus pilotables ici.
+    const res = await fetch(CHAT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages })
+    });
+    const data = await res.json();
+    const text = data.content?.[0]?.text;
+    if (!text) throw new Error('No content in response');
+    return text;
+  }
+
+  async function sendMessage(text) {
+    if (isLoading || !text.trim()) return;
+    // Hard cap supplémentaire en JS (l'attribut maxlength ne couvre pas le paste programmatique)
+    if (text.length > 2000) text = text.substring(0, 2000);
+    isLoading = true;
+    sendBtn.disabled = true;
+    userInput.value = '';
+
+    addMsg(text, 'user');
+
+    // Si des fichiers ont été uploadés, les afficher dans le chat
+    if (uploadedFiles.length > 0) {
+      uploadedFiles.forEach(f => {
+        const isImage = /\.(jpg|jpeg|png|gif|webp)$/i.test(f.name);
+        if (isImage) addImageToChat(f.url, f.name);
+      });
+    }
+
+    // Construire le contenu du message avec les fichiers si présents
+    let userContent = text;
+    if (uploadedFiles.length > 0) {
+      const fileList = uploadedFiles.map(f => f.url).join('\n');
+      userContent = text + (text ? '\n' : '') + '[Fichiers joints]\n' + fileList;
+    }
+    history.push({ role: 'user', content: userContent });
+
+    // Garder les URLs en mémoire, juste cacher les pills visuellement
+    filePills.innerHTML = '';
+    showTyping();
+
+    try {
+      const reply = await callProxy(history);
+      removeTyping();
+      await processReply(reply);
+
+    } catch(e) {
+      removeTyping();
+      addMsg("Une erreur est survenue, veuillez réessayer dans un instant.", 'bot');
+    }
+
+    isLoading = false;
+    sendBtn.disabled = false;
+    userInput.focus();
+  }
+
+  // Traite une réponse de Claude : détecte JSON (lead_capture, partial_save) ou affiche en chat
+  async function processReply(reply) {
+    history.push({ role: 'assistant', content: reply });
+
+    let handled = false;
+    const start = reply.indexOf('{');
+    if (start !== -1) {
+      let depth = 0, end = -1;
+      for (let i = start; i < reply.length; i++) {
+        if (reply[i] === '{') depth++;
+        else if (reply[i] === '}') { depth--; if (depth === 0) { end = i; break; } }
+      }
+      if (end !== -1) {
+        try {
+          const parsed = JSON.parse(reply.substring(start, end + 1));
+          if (parsed.type === 'lead_capture') {
+            // Vérification minimale avant de déclencher l'envoi : on n'accepte que si Claude a collecté l'essentiel.
+            const d = parsed.data || {};
+            // Adresse_mission est rendu obligatoire ici : garde-fou pour ne jamais finaliser
+            // un lead sans l'adresse du chantier. Le nom du champ doit correspondre exactement
+            // à celui utilisé dans le prompt Worker et dans Make.
+            const ok = d && typeof d === 'object'
+                       && typeof d.Prenom === 'string' && d.Prenom.trim()
+                       && typeof d.Nom === 'string' && d.Nom.trim()
+                       && typeof d.Email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.Email)
+                       && typeof d.Type_mission === 'string' && d.Type_mission.trim()
+                       && typeof d.Adresse_mission === 'string' && d.Adresse_mission.trim();
+            if (ok) {
+              handled = true;
+              handleLeadCapture(d);
+            }
+          } else if (parsed.type === 'partial_save') {
+            // Sauvegarde partielle silencieuse. On accepte si data est un objet non vide.
+            // La validation de l'email se fait après le merge dans partialData (handlePartialSave).
+            const d = parsed.data || {};
+            if (d && typeof d === 'object' && Object.keys(d).length > 0) {
+              handled = true;
+              handlePartialSave(d);
+            }
+          }
+        } catch(e) {}
+      }
+    }
+    if (!handled) addMsg(reply, 'bot');
+  }
+
+  // Sauvegarde partielle silencieuse vers Airtable (table Demandes_partielles)
+  // pour permettre une relance en cas d'abandon du parcours.
+  // Non-bloquante: le fetch tourne en arrière-plan, la conversation continue immédiatement.
+  async function handlePartialSave(data) {
+
+    // On attend que le précédent save (s'il y en a un) ait fini, pour récupérer le recordId à jour
+    // avant de lancer celui-ci. Cette attente est en pratique invisible car de nombreuses minutes
+    // s'écoulent entre deux saves (plusieurs tours de conversation).
+    await partialSavePromise.catch(() => {});
+
+    // Merge dans l'état accumulé. Les valeurs ultérieures remplacent les antérieures (utile si l'utilisateur corrige son email).
+    Object.assign(partialData, data);
+    const emailOk = typeof partialData.Email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(partialData.Email);
+
+    if (emailOk) {
+      // Fire-and-forget: on lance le fetch sans l'attendre, la conversation continue immédiatement.
+      // On stocke la promesse pour que le prochain save puisse l'attendre avant de partir.
+      partialSavePromise = fetch(SAVE_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...partialData, source: 'chatbot_site', partialRecordId: partialRecordId })
+      }).then(async r => {
+        if (r.ok) {
+          const json = await r.json().catch(() => ({}));
+          if (json && json.recordId) {
+            partialRecordId = json.recordId;
+          }
+        }
+      }).catch(e => {
+      });
+    }
+
+    // On réinjecte un ack technique dans l'historique pour que Claude enchaîne avec la question suivante.
+    history.push({ role: 'user', content: '[PARTIAL_SAVE_ACK: continue]' });
+    showTyping();
+    try {
+      const nextReply = await callProxy(history);
+      removeTyping();
+      await processReply(nextReply);
+    } catch(e) {
+      removeTyping();
+      addMsg("Une erreur est survenue, veuillez réessayer dans un instant.", 'bot');
+    }
+  }
+
+  function handleLeadCapture(data) {
+    addMsg("Votre demande a bien été enregistrée. Nous prendrons contact avec vous très prochainement. Merci de votre confiance et bonne journée !", 'bot');
+
+    // Récupère les fichiers restants dans les pills (cas où upload avant confirmation)
+    const pillFiles = Array.from(document.querySelectorAll('.file-pill')).map(p => p.dataset.url).filter(Boolean);
+    const allFiles = [...new Set([...uploadedFiles.map(f => f.url), ...pillFiles])];
+
+    // Envoi vers Make → Airtable + Telegram
+    fetch(LEAD_URL, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({source: "chatbot_site", timestamp: new Date().toISOString(), ...data, Fichiers: allFiles})
+    }).catch(e => console.error('Make webhook erreur:', e));
+
+    // Supprime l'enregistrement partiel correspondant (si présent) puisque la demande est maintenant en base définitive.
+    if (partialRecordId) {
+      fetch(DELETE_URL, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ partialRecordId: partialRecordId })
+      }).catch(e => console.error('Partial delete erreur:', e));
+    }
+    const prenom  = String(data.Prenom || data.prenom || '');
+    const nom     = String(data.Nom || data.nom || '');
+    const mission = String(data.Type_mission || data.mission || '');
+    const ville   = String(data.Ville_mission || '');
+    // Construction DOM API pour éviter toute injection HTML via les données du lead
+    const box = document.getElementById('leadBox');
+    box.textContent = '';
+    const inner = document.createElement('div');
+    inner.className = 'lead-box';
+    const strong = document.createElement('strong');
+    strong.textContent = 'Demande enregistrée';
+    inner.appendChild(document.createTextNode('✅ '));
+    inner.appendChild(strong);
+    inner.appendChild(document.createElement('br'));
+    inner.appendChild(document.createTextNode(`${prenom} ${nom} — ${mission} à ${ville}`));
+    box.appendChild(inner);
+    userInput.disabled = true;
+    sendBtn.disabled   = true;
+  }
+
+  // ── UPLOAD ─────────────────────────────────────────────────
+  const uploadBtn  = document.getElementById('uploadBtn');
+  const fileInput  = document.getElementById('fileInput');
+  const filePills  = document.getElementById('filePills');
+  const uploadingMsg = document.getElementById('uploadingMsg');
+
+  uploadBtn.addEventListener('click', () => fileInput.click());
+
+  // Types et taille autorisés pour l'upload (défense en profondeur ; le backend doit aussi valider)
+  const ALLOWED_FILE_TYPES = [
+    'image/jpeg','image/png','image/gif','image/webp',
+    'application/pdf',
+    'application/msword','application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'application/vnd.ms-excel','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    'text/plain'
+  ];
+  const MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024; // 10 Mo
+
+  fileInput.addEventListener('change', async () => {
+    const files = Array.from(fileInput.files);
+    if (!files.length) return;
+
+    // Validation locale avant tout envoi réseau
+    const rejected = files.filter(f =>
+      (f.type && !ALLOWED_FILE_TYPES.includes(f.type)) || f.size > MAX_FILE_SIZE_BYTES
+    );
+    if (rejected.length) {
+      addMsg(`Fichier(s) refusé(s) : ${rejected.map(f => f.name).join(', ')}. Formats acceptés : images, PDF, Word, Excel, TXT. Taille max 10 Mo.`, 'bot');
+      fileInput.value = '';
+      return;
+    }
+
+    uploadBtn.disabled = true;
+    uploadingMsg.textContent = 'Envoi en cours…';
+
+    for (const file of files) {
+      try {
+        const fd = new FormData();
+        fd.append('file', file);
+        const res = await fetch(UPLOAD_URL, { method: 'POST', body: fd });
+        const data = await res.json();
+        if (data.url && /^https?:\/\//i.test(data.url)) {
+          uploadedFiles.push({ url: data.url, name: file.name });
+          addFilePill(data.url, file.name);
+          const isImage = /\.(jpg|jpeg|png|gif|webp)$/i.test(file.name);
+          const typeMsg = isImage ? 'photo' : 'document';
+          addMsg(`Merci, j'ai bien reçu votre ${typeMsg} "${file.name}". Avez-vous d'autres fichiers à joindre, ou souhaitez-vous continuer ?`, 'bot');
+        }
+      } catch(e) {
+        console.error('Upload error:', e);
+      }
+    }
+
+    uploadingMsg.textContent = '';
+    uploadBtn.disabled = false;
+    fileInput.value = '';
+  });
+
+  function addFilePill(url, name) {
+    const pill = document.createElement('span');
+    pill.className = 'file-pill';
+    pill.dataset.url = url;
+    const isImage = /\.(jpg|jpeg|png|gif|webp)$/i.test(name);
+    const truncated = name.length > 25 ? name.substring(0, 25) + '…' : name;
+    // Texte du pill (icône + nom tronqué) en textContent pour bloquer toute injection HTML via le nom de fichier
+    pill.appendChild(document.createTextNode((isImage ? '🖼️ ' : '📄 ') + truncated + ' '));
+    const remove = document.createElement('span');
+    remove.className = 'remove-file';
+    remove.title = 'Retirer';
+    remove.textContent = '×';
+    remove.addEventListener('click', () => {
+      uploadedFiles = uploadedFiles.filter(f => f.url !== url);
+      pill.remove();
+    });
+    pill.appendChild(remove);
+    filePills.appendChild(pill);
+  }
+
+  function addImageToChat(url, name) {
+    // Bloque les schémas dangereux (javascript:, data:, etc.) qui pourraient venir d'un backend compromis
+    if (!/^https?:\/\//i.test(url)) {
+      console.warn('URL ignorée (schéma non https):', url);
+      return;
+    }
+    const box = document.getElementById('messages');
+    const wrap = document.createElement('div');
+    wrap.className = 'msg user';
+    wrap.style.padding = '8px';
+    const img = document.createElement('img');
+    img.src = url;
+    img.className = 'msg-image';
+    img.alt = name;
+    img.addEventListener('click', () => window.open(url, '_blank', 'noopener,noreferrer'));
+    wrap.appendChild(img);
+    box.appendChild(wrap);
+    box.scrollTop = box.scrollHeight;
+  }
+
+    sendBtn.addEventListener('click', () => sendMessage(userInput.value));
+  userInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(userInput.value); });
+
+  // Message d'ouverture hardcodé : pas d'appel API, pas de variabilité entre navigateurs/sessions, pas de risque d'hallucination.
+  (function() {
+    const welcome = "Bonjour ! Je suis Célia, assistante du bureau d'études ABEL. Pour préparer votre demande, pouvez-vous me donner vos prénom et nom ?";
+    history.push({ role: 'assistant', content: welcome });
+    addMsg(welcome, 'bot');
+  })();
+</script>
+
+</body>
+</html>

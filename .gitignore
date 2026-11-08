@@ -1,0 +1,6 @@
+dist/
+.cache/
+data/references.json
+__pycache__/
+.wrangler/
+node_modules/

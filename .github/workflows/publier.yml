@@ -1,0 +1,53 @@
+name: Publier abel.be
+
+on:
+  # chaque nuit à 3h17 (heure belge d'hiver)
+  schedule:
+    - cron: "17 2 * * *"
+  # bouton « Run workflow » sur GitHub (ou lien depuis Airtable)
+  workflow_dispatch:
+  # appel automatique depuis Airtable ou Make
+  repository_dispatch:
+    types: [airtable]
+  # toute modification du code ou des textes du site
+  push:
+    branches: [main]
+
+concurrency:
+  group: publication
+  cancel-in-progress: false
+
+jobs:
+  publier:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer Pillow
+        run: pip install Pillow
+
+      - name: Récupérer les photos déjà traitées
+        uses: actions/cache@v4
+        with:
+          path: .cache
+          key: photos-${{ github.run_id }}
+          restore-keys: photos-
+
+      - name: Lire les références dans Airtable
+        run: python build/sync_airtable.py
+        env:
+          AIRTABLE_TOKEN: ${{ secrets.AIRTABLE_TOKEN }}
+
+      - name: Générer le site
+        run: python build/build.py
+
+      - name: Déployer sur Cloudflare
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          command: deploy

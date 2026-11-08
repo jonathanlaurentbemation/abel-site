@@ -1,0 +1,11 @@
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+/wp-content/uploads/*
+  Cache-Control: public, max-age=2592000
+/refs/*
+  Cache-Control: public, max-age=2592000
+/chatbot/*
+  Content-Security-Policy: frame-ancestors 'self' https://www.abel.be https://abel.be

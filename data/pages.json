@@ -1,0 +1,250 @@
+{
+ "home-4-2": {
+  "boites": [
+   {
+    "icon": "fa-thumbs-up",
+    "titre": "Expertise",
+    "img": null,
+    "texte": "Nos ingénieurs vous apportent toutes leurs compétences pour vos projets. Nous expertisons vos bâtiments et leurs problèmes éventuels pour vous fournir les meilleures solutions"
+   },
+   {
+    "icon": "fa-calendar",
+    "titre": "Délais",
+    "img": null,
+    "texte": "Nous nous engageons sur des délais d'études fixes, en concertation avec les autres intervenants. Nous privilégions également la préfabrication afin de réduire la durée d'exécution."
+   },
+   {
+    "icon": "fa-eur",
+    "titre": "Budget",
+    "img": null,
+    "texte": "Nos études, par l'utilisation de logiciels performants et une utilisation adéquate des matériaux, permettent de réduire les couts liés aux éléments de stabilité de vos projets."
+   },
+   {
+    "icon": "fa-leaf",
+    "titre": "Développement durable",
+    "img": null,
+    "texte": "Le choix rationnel des morphologies et des matériaux nous permet de limiter l'empreinte environnementale des structures, notamment en privilégiant le bois."
+   }
+  ],
+  "fonds": [
+   "/wp-content/uploads/2017/02/BG-copy-1.jpg",
+   "/wp-content/uploads/2017/02/backgroundB.jpg"
+  ],
+  "h1": null,
+  "texte_h1": [
+   "ABEL sprl - ingénierie et stabilité"
+  ],
+  "lead": "Remplissez notre formulaire de demande de prix"
+ },
+ "desmons": {
+  "boites": [],
+  "fonds": [],
+  "h1": null,
+  "texte_h1": [
+   "Bureau d'études Desmons"
+  ],
+  "lead": null,
+  "html": "\n<h1>Bureau d'études Desmons</h1>\nLes activités du bureau d'études Desmons, inscrit dans une tradition familiale liée à la construction, ont été reprises depuis 2008 par ABEL sprl, sous la gérance de Jonathan Laurent, ingénieur civil de la Faculté Polytechnique de Mons.\n\nLe bureau a conservé la confiance d’architectes et d’industriels qui lui ont permis de réaliser des projets de plus en plus ambitieux tant en taille qu’en difficulté et de développer le bureau jusqu’à l’activité actuelle.\nAttentive aux attentes, nous veillons à accompagner l’architecte, le maître d’ouvrage ou l’entrepreneur dans le développement de son projet en tenant compte de ses contraintes propres et de l’étendue de la mission souhaitée quelle que soit la taille du projet en s’intégrant éventuellement dans des équipes multidisciplinaires.\n\nLa compréhension complète des tenants et aboutissants structurels d’un projet, l’intérêt pour les calculs détaillés et la mise au point de l’ensemble des détails constructifs sont les valeurs de notre bureau. Ces valeurs partagées permettent au bureau de continuer son partenariat avec des architectes ou maîtres d’ouvrages exigeants qui apprécient le service que notre équipe jeune et motivée peut offrir.\n\n"
+ },
+ "home-particuliers": {
+  "boites": [
+   {
+    "icon": "fa-chevron-down",
+    "titre": null,
+    "img": null,
+    "texte": ""
+   },
+   {
+    "icon": "fa-thumbs-up",
+    "titre": "Expertise",
+    "img": null,
+    "texte": "Que ce soit pour un achat ou une vente, que ce soit pour une étude de faisabilité avant travaux ou encore suite à l'apparition de fissures, nous nous rendons sur site et pouvons vous assister pour expertiser votre bien. Nous réalisons alors un rapport écrit reprenant nos observations et les mesures à prendre à court ou long terme."
+   },
+   {
+    "icon": "fa-home",
+    "titre": "Construction neuve",
+    "img": null,
+    "texte": "Lors d'une construction neuve, vous aurez besoin d'être accompagné par un bureau d'ingénieur qui dimensionnera les fondations sur base d'un essai de sol et qui déterminera les structures portantes telles que les linteaux, les poutres, les planchers, les charpentes de toitures,... Ce type d'étude doit être réalisée même si vous construisez en clef sur porte afin d'éviter tout problème après la construction. Nous pouvons dans certains cas réaliser des missions partielles, par exemple uniquement sur l'étude des fondations."
+   },
+   {
+    "icon": "fa-fort-awesome",
+    "titre": "Rénovation",
+    "img": null,
+    "texte": "Si vous possédez un bien et que vous souhaitez le rénover ou si vous envisagez l'acquisition d'un bâtiment existant, mieux vaut vous faire accompagner par un ingénieur. Nous pourrons vous permettre d'envisager les travaux de rénovation en connaissant la structure et en anticipant tous les problèmes éventuels. Nous pouvons vous assister pour la création de baies, démolition de murs, modification ou réparation de charpente mais aussi pour le dimensionnement de tous les éléments neufs que vous ajouterez à votre bien."
+   }
+  ],
+  "fonds": [
+   "/wp-content/uploads/2017/02/Capture-décran-2017-02-20-16.30.35.png",
+   "/wp-content/uploads/2017/02/fondferraillage.jpg"
+  ],
+  "h1": "Démarrez sur une base solide ",
+  "texte_h1": [
+   "ABEL sprl - ingénierie et stabilité"
+  ],
+  "lead": "Remplissez notre formulaire de demande de prix"
+ },
+ "packfondation": {
+  "boites": [
+   {
+    "icon": "fa-check-square",
+    "titre": "Etude du sol",
+    "img": null,
+    "texte": "Nous nous chargeons de l'étude de votre sol. Les investigations sur le terrain permettent de chasser toutes les incertitudes qui sont synonymes de retards, dépassement de budget et problèmes administratifs."
+   },
+   {
+    "icon": "fa-check-square",
+    "titre": "Analyse par des ingénieurs",
+    "img": null,
+    "texte": "L'analyse des résultats est confiées à des ingénieurs spécialisés qui analysent toutes les propriétés du sol pouvant influencer un chantier de fondation."
+   },
+   {
+    "icon": "fa-check-square",
+    "titre": "Choix des fondations",
+    "img": null,
+    "texte": "Sur base de cette analyse de sol, nous déterminons le mode de fondation qui convient le mieux à votre projet. Nous proposons des solutions sans surcout superflu."
+   },
+   {
+    "icon": "fa-check-square",
+    "titre": "documents d'exécution",
+    "img": null,
+    "texte": "Nous réalisons les documents d'exécution en collaboration avec les intervenants ultérieurs et vous transmettons un dossier pour les demandes de prix aux entreprises. Nous pouvons aussi nous charger d'interroger 3 entreprises compétentes en fonction des solutions retenues."
+   },
+   {
+    "icon": "fa-check-square",
+    "titre": "controle du chantier et assistance",
+    "img": null,
+    "texte": "Nous restons votre partenaire durant l'exécution du chantier. Bien que notre étude aura mis l'accent sur les éventuels problèmes et leurs solutions, nous restons à votre disposition pour le contrôle du chantier et pour tout conseil."
+   },
+   {
+    "icon": "fa-check-square",
+    "titre": "mission complète",
+    "img": null,
+    "texte": "Nous pouvons aussi effectuer une mission complète de stabilité qui supervisera également tous les autres ouvrages de structure (poutres, dalles, planchers, charpentes,...)"
+   },
+   {
+    "icon": "fa-chevron-down",
+    "titre": null,
+    "img": null,
+    "texte": ""
+   }
+  ],
+  "fonds": [
+   "/wp-content/uploads/2017/02/IMG_4227.jpg"
+  ],
+  "h1": null,
+  "texte_h1": [
+   "Démarrez sur une bonne base."
+  ],
+  "lead": "Nous pouvons effectuer une mission partielle limitée aux ouvrages de fondation. Que vous construisiez avec une entreprise clef sur porte, que vous choisissiez une habitation en bois ou encore que vous soyez auto-constructeur, ne négligez pas la base de votre projet."
+ },
+ "home-architectes": {
+  "boites": [
+   {
+    "icon": "fa-chevron-down",
+    "titre": null,
+    "img": null,
+    "texte": ""
+   },
+   {
+    "icon": "fa-handshake-o",
+    "titre": "Collaboration",
+    "img": null,
+    "texte": "Nous sommes au service de l'imagination des architectes.\nL'échelle de notre bureau permet une collaboration étroite avec nos partenaires, et ce dès la conception et tout au long de l'évolution du projet.\nComprendre l'objectif et la philosophie de l'architecte, afin d'apporter les meilleures solutions constructives et techniques, sont nos objectifs."
+   },
+   {
+    "icon": "fa-home",
+    "titre": "Créativité et durabilité",
+    "img": null,
+    "texte": "Que la structure soit un élément à mettre en valeur ou au contraire à minimiser, nous étudions les moyens possibles pour conserver l'esprit donné et voulu par les Maitres d'Ouvrages et les Architectes.\n\nLes échanges de cette collaboration continue permettent de dépasser les contraintes et de laisser libre cours à une imagination créative.\nNous nous attelons également à concevoir des structures durables que ce soit par les matériaux employés ou par le dimensionnement permettant de réduire au maximum ces matériaux."
+   },
+   {
+    "icon": "fa-fort-awesome",
+    "titre": "Conservation du patrimoine",
+    "img": null,
+    "texte": "Qu'il s'agisse de structures anciennes à consolider avec des méthodes et techniques nouvelles, de bâtiments à restaurer et respecter intégralement jusque dans leurs qualités techniques et expressives ou de bâtiments à réaffecter en y introduisant de nouvelles structures tout en conservant celles qui existent, nous évaluons rigoureusement l'état existant et adoptons une philosophie précise de conservation\nCelle-ci s'élabore de concert avec les architectes avec qui nous identifions les valeurs significatives des édifices."
+   },
+   {
+    "icon": "fa-handshake-o",
+    "titre": "Béton",
+    "img": "/wp-content/uploads/2017/03/71996-3790083.jpg",
+    "texte": "Notre expérience en génie civil nous permet d'apporter des solutions économiques autant pour les fondations que pour des structures en béton qui sont, pour la plupart, discrètes et fonctionnelles.\nLes ouvrages de génie civil sont indispensables pour la bonne activité des industries, des infrastructures publiques, mais aussi pour les fondations de toutes constructions."
+   },
+   {
+    "icon": "fa-home",
+    "titre": "Acier",
+    "img": "/wp-content/uploads/2017/03/Assemblage-3.jpg",
+    "texte": "Nous concevons des charpentes métalliques dimensionnées et optimalisées par l'utilisation de nos logiciels performants. Nous nous attelons également à concevoir des structures durables en réduisant au maximum le poids des poutres."
+   },
+   {
+    "icon": "fa-fort-awesome",
+    "titre": "Bois",
+    "img": "/wp-content/uploads/2017/03/ob_46e355f63b3f56ae690a6d6021f856d4_img-0172.jpg",
+    "texte": "Le bois est le matériau de prédilection de notre bureau. Nous favorisons au maximum son utilisation rationnelle.\nNotre collaboration récurrente avec des sociétés de construction bois nous a permis de développer des outils performants dans ce domaine, également dans la réalisation de plans d'assemblage en charpenterie et ossature bois."
+   }
+  ],
+  "fonds": [
+   "/wp-content/uploads/2017/03/IMG_4966.jpg",
+   "/wp-content/uploads/2017/03/IMG_1758.jpg"
+  ],
+  "h1": "Des études collaboratives et durables",
+  "texte_h1": [
+   "ABEL sprl - ingénierie et stabilité"
+  ],
+  "lead": "Remplissez notre formulaire de demande de prix"
+ },
+ "home-pro": {
+  "boites": [
+   {
+    "icon": "fa-chevron-down",
+    "titre": null,
+    "img": null,
+    "texte": ""
+   },
+   {
+    "icon": "fa-home",
+    "titre": "Promotion immobilière",
+    "img": null,
+    "texte": "L'échelle de notre bureau permet une collaboration étroite avec nos partenaires, et ce dès la conception et tout au long de l'évolution du projet.\nNous apportons les meilleures solutions constructives et techniques. Que la structure soit un élément à mettre en valeur ou au contraire à minimiser, nous étudions les moyens possibles pour conserver l'esprit donné et voulu par les Maitres d'Ouvrages et les Architectes.\n\nLes échanges de cette collaboration continue permettent de dépasser les contraintes et de laisser libre cours à une imagination créative.\nNous nous attelons également à concevoir des structures durables que ce soit par les matériaux employés ou par le dimensionnement permettant de réduire au maximum ces matériaux."
+   },
+   {
+    "icon": "fa-map",
+    "titre": "Charges d'entreprise",
+    "img": null,
+    "texte": "Lors de marchés pour lesquels la stabilité est à charge de l'entreprise de construction, nous traitons vos dossiers en priorité pour conserver votre planning d'exécution.\nNous gardons un lien très étroit avec le monde des entreprises et une compréhension approfondie des méthodes d'exécution.\nNous apportons notre assistance et nos conseils techniques et pouvons réaliser des études de prototypes , de faisabilité, de dimensionnement, en accompagnant et conseillant au mieux les entreprises.\nNous pouvons aussi effectuer un management de projet qui permet d'accroître l'efficacité dans les entreprises par quelques changements fonctionnels et organisationnels de la gestion du travail."
+   },
+   {
+    "icon": "fa-industry",
+    "titre": "Industrie et génie civil",
+    "img": null,
+    "texte": "Nous réalisons des ouvrages techniques et fonctionnels\nLes missions classiques d'aménagement de voiries, de parc à conteneurs, d'infrastructures industrielles ou encore de bassin de rétention ou de station de pompage d'eau font partie des tâches d'un bureau d'ingénieurs tel que le nôtre.\nABEL s'y consacre tout en collaborant avec les équipementiers, ou les commanditaires afin d'étudier au mieux leurs besoins et d'y répondre le plus économiquement possible avec des moyens durables.\nLes ouvrages de génie civil sont, pour la plupart, discrets et fonctionnels. Ils sont indispensables pour la bonne activité des industries mais également dans les infrastructures publiques."
+   },
+   {
+    "icon": "fa-handshake-o",
+    "titre": "Béton",
+    "img": "/wp-content/uploads/2017/03/71996-3790083.jpg",
+    "texte": "Notre expérience en génie civil nous permet d'apporter des solutions économiques autant pour les fondations que pour des structures en béton qui sont, pour la plupart, discrètes et fonctionnelles.\nLes ouvrages de génie civil sont indispensables pour la bonne activité des industries, des infrastructures publiques, mais aussi pour les fondations de toutes constructions."
+   },
+   {
+    "icon": "fa-home",
+    "titre": "Acier",
+    "img": "/wp-content/uploads/2017/03/Assemblage-3.jpg",
+    "texte": "Nous concevons des charpentes métalliques dimensionnées et optimalisées par l'utilisation de nos logiciels performants. Nous nous attelons également à concevoir des structures durables en réduisant au maximum le poids des poutres."
+   },
+   {
+    "icon": "fa-fort-awesome",
+    "titre": "Bois",
+    "img": "/wp-content/uploads/2017/03/ob_46e355f63b3f56ae690a6d6021f856d4_img-0172.jpg",
+    "texte": "Le bois est le matériau de prédilection de notre bureau. Nous favorisons au maximum son utilisation rationelle.\nNotre collaboration récurrente avec des sociétés de construction bois nous a permis de développer des outils performants dans ce domaine, également dans la réalisation de plans d'assemblage en charpenterie et ossature bois."
+   }
+  ],
+  "fonds": [
+   "/wp-content/uploads/2017/03/IMG_6590.jpg",
+   "/wp-content/uploads/2017/03/IMG_1758.jpg"
+  ],
+  "h1": "Pour la stabilité de tous vos projets",
+  "texte_h1": [
+   "ABEL sprl - ingénierie et stabilité"
+  ],
+  "lead": "Remplissez notre formulaire de demande de prix"
+ }
+}

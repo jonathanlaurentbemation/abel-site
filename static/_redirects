@@ -1,0 +1,12 @@
+/accordion/ / 301
+/home-4/ / 301
+/page-d-exemple/ / 301
+/error-404/ / 301
+/portfolio/ /allreferences/ 301
+/portfolio /allreferences/ 301
+/feed/ /news/ 301
+/category/* /news/ 301
+/author/* /news/ 301
+/tag/* /news/ 301
+/wp-login.php / 301
+/wp-admin/* / 301
